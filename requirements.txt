@@ -1,0 +1,16 @@
+#
+# DEVELOPMENT / PRODUCTION
+#
+
+python-dotenv
+pandas
+requests
+flask
+sendgrid==6.6.0
+gunicorn
+
+#
+# TEST
+#
+
+pytest
