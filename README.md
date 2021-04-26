@@ -1,8 +1,8 @@
 # team-dashboard
 
-##Setup
+## Setup
 
-##Using the API
+## Using the API
 https://fly.sportsdata.io/v3/soccer/scores/json/Competitions?key=960a5f575afb4c7887b0262f17783434
 
 find matching competition id / name
