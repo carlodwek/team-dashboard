@@ -8,4 +8,27 @@
     <p>Welcome to our website.</p>
     <li>Please use the headers to navigate.</li>
 
+    <form action="/dashboard" method="POST">
+
+        <label for="league">Select your League:</label>
+        <select name="league" id="league">
+            <option value="Serie A">Serie A</option>
+            <option value="Premier League">Premier League</option>
+        </select>
+        <br>
+        <br>
+        <label for="team">Select your Team:</label>
+        <select name="team" id="team">
+            <option value="Inter">Inter</option>
+            <option value="Juventus">Juventus</option>
+            <option value="Milan">Milan</option>
+            <option value="Chelsea">Chelsea</option>
+        </select>
+        <br>
+        <br>
+
+        <button>Submit</button>
+    </form>
+
+
 {% endblock %}

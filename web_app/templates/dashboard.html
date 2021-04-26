@@ -1,0 +1,26 @@
+{% extends "bootstrap_layout.html" %}
+{% set active_page = "home" %}
+
+{% block content %}
+
+<h2>Schedule for {{ team }} in {{ league }}</h2>
+<img src="{{ LogoUrl }}" alt="Error">
+
+<table style="width:100%">
+  <tr style="border-bottom:1px solid #ddd">
+    <th style="text-align:center">Time</th>
+    <th style="text-align:center">Home Team</th>
+    <th style="text-align:center">Score</th>
+    <th style="text-align:center">Away Team</th>
+  </tr>
+  {% for i in schedule %}
+      <tr style="border-bottom:1px solid #ddd">
+        <td style="text-align:center">{{ i["DateTime"] }}</td>
+        <td style="text-align:center">{{ i["HomeTeamName"] }}</td>
+        <td style="text-align:center">{{ i["HomeTeamScore"]~"-"~i["AwayTeamScore"] }}</td>
+        <td style="text-align:center">{{ i["AwayTeamName"] }}</td>
+      </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
