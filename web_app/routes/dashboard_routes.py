@@ -33,7 +33,7 @@ def dashboard():
         request_data = dict(request.form)
 
     league = request_data.get("League") or "Serie A"
-    team = request_data.get("Team") or "Inter"
+    team = request_data.get("Team") or "FC Internazionale Milano"
 
     SeasonId, RoundId = GetLeagueIds(league=league)
     TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
@@ -47,7 +47,7 @@ def dashboard_schedule():
     print("DASHBOARD SCHEDULE...", dict(request.args))
 
     league = request.args.get("League") or "Serie A"
-    team = request.args.get("Team") or "Inter"
+    team = request.args.get("Team") or "FC Internazionale Milano"
 
     SeasonId, RoundId = GetLeagueIds(league=league)
     TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
@@ -61,7 +61,7 @@ def dashboard_standings():
     print("DASHBOARD STANDINGS...", dict(request.args))
 
     league = request.args.get("League") or "Serie A"
-    team = request.args.get("Team") or "Inter"
+    team = request.args.get("Team") or "FC Internazionale Milano"
 
     SeasonId, RoundId = GetLeagueIds(league=league)
     TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
