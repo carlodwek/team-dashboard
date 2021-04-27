@@ -7,25 +7,26 @@
 
     <p>Welcome to our website.</p>
     <li>Please use the headers to navigate.</li>
+    <br>
 
-    <form action="/dashboard" method="POST">
+    <form action="/team" method="POST">
 
         <label for="league">Select your League:</label>
         <select name="league" id="league">
-            <option value="Serie A">Serie A</option>
-            <option value="Premier League">Premier League</option>
+          {% for league in leagues %}
+            <option value="{{ league }}">{{ league }}</option>
+          {% endfor %}
         </select>
         <br>
         <br>
-        <label for="team">Select your Team:</label>
+        <!-- <label for="team">Select your Team:</label>
         <select name="team" id="team">
             <option value="Inter">Inter</option>
             <option value="Juventus">Juventus</option>
             <option value="Milan">Milan</option>
             <option value="Chelsea">Chelsea</option>
         </select>
-        <br>
-        <br>
+        <br> -->
 
         <button>Submit</button>
     </form>

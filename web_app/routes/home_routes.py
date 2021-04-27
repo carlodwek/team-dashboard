@@ -1,4 +1,5 @@
 from flask import Blueprint, request, render_template
+from app.sport import GetLeagues
 
 home_routes = Blueprint("home_routes", __name__)
 
@@ -6,7 +7,8 @@ home_routes = Blueprint("home_routes", __name__)
 @home_routes.route("/home")
 def index():
     print("HOME...")
-    return render_template("home.html")
+    leagues = GetLeagues()
+    return render_template("home.html", leagues=leagues)
 
 @home_routes.route("/about")
 def about():
