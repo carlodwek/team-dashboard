@@ -5,14 +5,13 @@
 
     <h1>Home</h1>
 
-    <p>Welcome to our website.</p>
-    <li>Please use the headers to navigate.</li>
-    <br>
+    <p>Welcome to the Team Dashboard.</p>
+    <hr>
 
     <form action="/team" method="POST">
 
-        <label for="league">Select your League:</label>
-        <select name="league" id="league">
+        <label for="League">Select your League:</label>
+        <select name="League" id="League">
           {% for league in leagues %}
             <option value="{{ league }}">{{ league }}</option>
           {% endfor %}

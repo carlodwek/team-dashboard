@@ -14,7 +14,7 @@ def team():
         print("FORM DATA:", dict(request.form))
         request_data = dict(request.form)
 
-    league = request_data.get("league") or "Serie A"
+    league = request_data.get("League") or "Serie A"
 
     SeasonId, RoundId = GetLeagueIds(league=league)
     teams = GetTeams(SeasonId)
@@ -32,8 +32,8 @@ def dashboard():
         print("FORM DATA:", dict(request.form))
         request_data = dict(request.form)
 
-    league = request_data.get("league") or "Serie A"
-    team = request_data.get("team") or "Inter"
+    league = request_data.get("League") or "Serie A"
+    team = request_data.get("Team") or "Inter"
 
     SeasonId, RoundId = GetLeagueIds(league=league)
     TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
@@ -41,3 +41,31 @@ def dashboard():
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
 
     return render_template("dashboard.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)
+
+@dashboard_routes.route("/dashboard/schedule")
+def dashboard_schedule():
+    print("DASHBOARD SCHEDULE...", dict(request.args))
+
+    league = request.args.get("League") or "Serie A"
+    team = request.args.get("Team") or "Inter"
+
+    SeasonId, RoundId = GetLeagueIds(league=league)
+    TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
+    standings = GetStandings(RoundId=RoundId)
+    schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
+
+    return render_template("dashboard_schedule.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)
+
+@dashboard_routes.route("/dashboard/standings")
+def dashboard_standings():
+    print("DASHBOARD STANDINGS...", dict(request.args))
+
+    league = request.args.get("League") or "Serie A"
+    team = request.args.get("Team") or "Inter"
+
+    SeasonId, RoundId = GetLeagueIds(league=league)
+    TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
+    standings = GetStandings(RoundId=RoundId)
+    schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
+
+    return render_template("dashboard_standings.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)

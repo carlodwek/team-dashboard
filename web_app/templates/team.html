@@ -5,9 +5,8 @@
 
 <h1>Home</h1>
 
-<p>Welcome to our website.</p>
-<li>Please use the headers to navigate.</li>
-<br>
+<p>Welcome to the Team Dashboard.</p>
+<hr>
 <form action="/dashboard" method="POST">
 
     <!-- <label for="league">Select your League:</label>
@@ -18,13 +17,13 @@
     </select>
     <br>
     <br> -->
-    <label for="team">Select your Team in {{ league }}:</label>
-    <select name="team" id="team">
+    <label for="Team">Select your Team in {{ league }}:</label>
+    <select name="Team" id="Team">
       {% for team in teams %}
         <option value="{{ team }}">{{ team }}</option>
       {% endfor %}
     </select>
-    <input type="hidden" name="league" value="{{ league }}"/>
+    <input type="hidden" name="League" value="{{ league }}"/>
     <br>
     <br>
 

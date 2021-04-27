@@ -37,7 +37,11 @@ def GetLeagues():
     if response.status_code != 200:
         return None
     parsed_response = json.loads(response.text)
-    leagues = [i['Name'] for i in parsed_response]
+    leagues = []
+    for i in parsed_response:
+        for x in i['Seasons']:
+            if x['CurrentSeason'] == True:
+                leagues.append(i['Name'])
     return leagues
 
 def GetTeams(SeasonId):
@@ -45,7 +49,7 @@ def GetTeams(SeasonId):
     if response.status_code != 200:
         return None
     parsed_response = json.loads(response.text)
-    teams = [i['TeamName'] for i in parsed_response]
+    teams = [i['Team']['Name'] for i in parsed_response]
     return teams
 
 def GetLeagueIds(league):
@@ -66,7 +70,7 @@ def GetTeamIds(team, SeasonId):
     if response.status_code != 200:
         return None, None, None, None
     parsed_response = json.loads(response.text)
-    TeamList = [i for i in parsed_response if i['TeamName'] == team][0]
+    TeamList = [i for i in parsed_response if i['Team']['Name'] == team][0]
     TeamId = TeamList['TeamId']
     LogoUrl = TeamList['Team']['WikipediaLogoUrl']
     print(TeamId)
