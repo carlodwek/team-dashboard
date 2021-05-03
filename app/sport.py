@@ -92,7 +92,7 @@ def GetSchedule(RoundId, TeamId):
         return None
     parsed_response = json.loads(response.text)
     schedule = [i for i in parsed_response if i['AwayTeamId'] == TeamId or i['HomeTeamId'] == TeamId]
-
+    print(schedule)
     return schedule
 
 if __name__ == "__main__":
