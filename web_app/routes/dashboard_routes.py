@@ -40,6 +40,9 @@ def dashboard():
     standings = GetStandings(RoundId=RoundId)
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
 
+    # Getting last and next game
+    # Simplified table code here
+
     return render_template("dashboard.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)
 
 @dashboard_routes.route("/dashboard/schedule")
@@ -53,6 +56,8 @@ def dashboard_schedule():
     TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
     standings = GetStandings(RoundId=RoundId)
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
+
+    # Fix dates and None-None and others
 
     return render_template("dashboard_schedule.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)
 
