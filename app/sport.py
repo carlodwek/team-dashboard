@@ -131,7 +131,7 @@ if __name__ == "__main__":
         print(i["DateTime"],"-", i["HomeTeamName"], str(i["HomeTeamScore"])+"-"+str(i["AwayTeamScore"]), i["AwayTeamName"])
     now = datetime.now()
     for i in schedule:
-        x = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
+        x = datetime.strptime(i["DateTime"], '%m-%d-%Y %H:%M')
         if x > now:
             next = i
             break
