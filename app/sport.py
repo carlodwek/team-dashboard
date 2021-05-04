@@ -4,6 +4,7 @@ import json
 import requests
 import pandas as pd
 from datetime import datetime
+from operator import itemgetter
 
 # from app import APP_ENV
 
@@ -85,6 +86,7 @@ def GetStandings(RoundId):
         return None
     parsed_response = json.loads(response.text)
     standings = [i for i in parsed_response if i['Scope'] == "Total"]
+    standings = sorted(standings, key=itemgetter('Order'))
     return standings
 
 def GetSchedule(RoundId, TeamId):

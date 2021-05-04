@@ -1,5 +1,5 @@
 {% extends "bootstrap_layout.html" %}
-{% set active_page = "home" %}
+{% set active_page = "dashboard_standings" %}
 
 {% block content %}
 
@@ -10,7 +10,9 @@
 {% set active_page = active_page|default('dashboard') -%}
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{'/dashboard?League='+league+'&Team='+team}}">Home</a>
+        <a href="{{'/dashboard?League='+league+'&Team='+team}}"><img src="{{ LogoUrl }}" alt="Home" style="height:50px;margin:0px 10px"><a>
+        <!-- <a class="navbar-brand" href="{{'/dashboard?League='+league+'&Team='+team}}">Home</a> -->
+
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,8 +35,49 @@
         </div>
     </div>
 </nav>
-
-<img src="{{ LogoUrl }}" alt="logo">
-<p>Standings Code Here<p>
+<h2>{{ league }} Standings</h2>
+<table style="width:100%">
+  <tr style="border-bottom:1px solid #ddd">
+    <th style="text-align:center">Position</th>
+    <th style="text-align:center">Team</th>
+    <th style="text-align:center">Matches Played</th>
+    <th style="text-align:center">Wins</th>
+    <th style="text-align:center">Draws</th>
+    <th style="text-align:center">Losses</th>
+    <th style="text-align:center">Goals For</th>
+    <th style="text-align:center">Goals Against</th>
+    <th style="text-align:center">Goal Difference</th>
+    <th style="text-align:center">Points</th>
+  </tr>
+  {% for i in standings %}
+    {% if i["Name"] == team %}
+      <tr style="border-bottom:1px solid #ddd;background-color:#E6E6E6;font-weight:bold">
+        <td style="text-align:center">{{ i["Order"] }}</td>
+        <td style="text-align:center">{{ i["Name"] }}</td>
+        <td style="text-align:center">{{ i["Games"] }}</td>
+        <td style="text-align:center">{{ i["Wins"] }}</td>
+        <td style="text-align:center">{{ i["Draws"] }}</td>
+        <td style="text-align:center">{{ i["Losses"] }}</td>
+        <td style="text-align:center">{{ i["GoalsScored"] }}</td>
+        <td style="text-align:center">{{ i["GoalsAgainst"] }}</td>
+        <td style="text-align:center">{{ i["GoalsDifferential"] }}</td>
+        <td style="text-align:center">{{ i["Points"] }}</td>
+      </tr>
+    {% else %}
+      <tr style="border-bottom:1px solid #ddd">
+        <td style="text-align:center">{{ i["Order"] }}</td>
+        <td style="text-align:center">{{ i["Name"] }}</td>
+        <td style="text-align:center">{{ i["Games"] }}</td>
+        <td style="text-align:center">{{ i["Wins"] }}</td>
+        <td style="text-align:center">{{ i["Draws"] }}</td>
+        <td style="text-align:center">{{ i["Losses"] }}</td>
+        <td style="text-align:center">{{ i["GoalsScored"] }}</td>
+        <td style="text-align:center">{{ i["GoalsAgainst"] }}</td>
+        <td style="text-align:center">{{ i["GoalsDifferential"] }}</td>
+        <td style="text-align:center">{{ i["Points"] }}</td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+</table>
 
 {% endblock %}

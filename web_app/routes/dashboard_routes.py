@@ -73,4 +73,6 @@ def dashboard_standings():
     standings = GetStandings(RoundId=RoundId)
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
 
+
+
     return render_template("dashboard_standings.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)
