@@ -10,7 +10,7 @@
 {% set active_page = active_page|default('dashboard') -%}
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
     <div class="container-fluid">
-        <a href="{{'/dashboard?League='+league+'&Team='+team}}"><img src="{{ LogoUrl }}" alt="Home" style="height:50px;margin:0px 10px"><a>
+        <a href="{{'/dashboard?League='+league+'&Team='+team}}"><img src="{{ LogoUrl }}" alt="Home" style="height:50px;margin:0px 10px"></a>
         <!-- <a class="navbar-brand" href="{{'/dashboard?League='+league+'&Team='+team}}">Home</a> -->
 
 
@@ -53,7 +53,7 @@
     {% if i["Name"] == team %}
       <tr style="border-bottom:1px solid #ddd;background-color:#E6E6E6;font-weight:bold">
         <td style="text-align:center">{{ i["Order"] }}</td>
-        <td style="text-align:center">{{ i["Name"] }}</td>
+        <td style="text-align:center"><a href="{{'/dashboard/standings?League='+league+'&Team='+i['Name']}}" style="color: #000000;text-decoration: none;">{{ i["Name"] }}</a></td>
         <td style="text-align:center">{{ i["Games"] }}</td>
         <td style="text-align:center">{{ i["Wins"] }}</td>
         <td style="text-align:center">{{ i["Draws"] }}</td>
@@ -66,7 +66,7 @@
     {% else %}
       <tr style="border-bottom:1px solid #ddd">
         <td style="text-align:center">{{ i["Order"] }}</td>
-        <td style="text-align:center">{{ i["Name"] }}</td>
+        <td style="text-align:center"><a href="{{'/dashboard/standings?League='+league+'&Team='+i['Name']}}" style="color: #000000;text-decoration: none;">{{ i["Name"] }}</a></td>
         <td style="text-align:center">{{ i["Games"] }}</td>
         <td style="text-align:center">{{ i["Wins"] }}</td>
         <td style="text-align:center">{{ i["Draws"] }}</td>
