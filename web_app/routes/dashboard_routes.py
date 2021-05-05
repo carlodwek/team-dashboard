@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template
-from app.sport import GetSchedule, GetStandings, GetTeams, GetLeagueIds, GetTeamIds, ColourToHtml
+from app.sport import GetSchedule, GetStandings, GetTeams, GetLeagueIds, GetTeamIds, ColourToHtml, Next_Last_Schedule
 
 dashboard_routes = Blueprint("dashboard_routes", __name__)
 
@@ -40,11 +40,10 @@ def dashboard():
     standings = GetStandings(RoundId=RoundId)
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
     htmlcolours = ColourToHtml(Colours=Colours)
-    # Getting last and next game
-    # Simplified table code here
+    next, last = Next_Last_Schedule(schedule)
 
-    return render_template("dashboard.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule, htmlcolours=htmlcolours)
-
+    return render_template("dashboard.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule, htmlcolours=htmlcolours, next=next, last=last)
+    
 @dashboard_routes.route("/dashboard/schedule")
 def dashboard_schedule():
     print("DASHBOARD SCHEDULE...", dict(request.args))
@@ -57,9 +56,9 @@ def dashboard_schedule():
     standings = GetStandings(RoundId=RoundId)
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
     htmlcolours = ColourToHtml(Colours=Colours)
-    # Fix dates and None-None and others
+    next, last = Next_Last_Schedule(schedule)
 
-    return render_template("dashboard_schedule.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule, htmlcolours=htmlcolours)
+    return render_template("dashboard_schedule.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule, htmlcolours=htmlcolours, next=next, last=last)
 
 @dashboard_routes.route("/dashboard/standings")
 def dashboard_standings():
