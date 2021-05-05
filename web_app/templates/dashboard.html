@@ -35,11 +35,37 @@
 </nav>
 
 <h1>{{ team }}</h1>
+
 <!-- can add color or maybe give it a different font -->
 
 <img src="{{ LogoUrl }}" alt="logo" style="width:200px">
 
 <!-- fixed position and fixed size -->
-<p>Dashboard Code Here<p>
 
+<table style="width:100%"></table>
+    <tr style="border-bottom:1px solid #ddd">
+        <td style="text-align:center">{{ last["DateTime"] }}</td>
+        <td style="text-align:center">{{ last["HomeTeamName"] }}</td>
+        {% if next["HomeTeamScore"] != None and last["AwayTeamScore"] != None %}
+        <td style="text-align:center">{{ last["HomeTeamScore"]~"-"~i["AwayTeamScore"] }}</td>
+        {% else %}
+        <td style="text-align:center">TBD</td>
+        {% endif %}
+        <td style="text-align:center">{{ last["AwayTeamName"] }}</td>
+      </tr>
+</table>
+
+<table style="width:100%"></table>
+    <tr style="border-bottom:1px solid #ddd">
+        <td style="text-align:center">{{ next["DateTime"] }}</td>
+        <td style="text-align:center">{{ next["HomeTeamName"] }}</td>
+        {% if next["HomeTeamScore"] != None and next["AwayTeamScore"] != None %}
+        <td style="text-align:center">{{ next["HomeTeamScore"]~"-"~i["AwayTeamScore"] }}</td>
+        {% else %}
+        <td style="text-align:center">TBD</td>
+        {% endif %}
+        <td style="text-align:center">{{ next["AwayTeamName"] }}</td>
+      </tr>
+</table>
+        </tr>
 {% endblock %}
