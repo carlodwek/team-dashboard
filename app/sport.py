@@ -84,9 +84,13 @@ def GetTeamIds(team, SeasonId):
     if C2 == "White":
         C2 = None
     C4 = TeamList['Team']['ClubColor3']
+    if C1 == "Black":
+        C3 = "White"
+    else:
+        C3 = "Black"
     if C4 == None:
         C4 = "White"
-    cList = [C1,C2,"Black",C4]
+    cList = [C1,C2,C3,C4]
     Colours = []
     for i in cList:
         if i != None:
