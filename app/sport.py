@@ -117,6 +117,21 @@ def GetSchedule(RoundId, TeamId):
     # print(schedule)
     return schedule
 
+
+def Next_Last_Schedule(schedule):
+
+    now = datetime.now()
+    counter = 0
+    for i in schedule:
+        x = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
+        if x > now:
+            next = i
+            last = schedule[counter-1]
+            break
+        counter += 1
+    return next, last
+
+
 def ColourToHtml(Colours):
     htmlcolours = []
     for i in Colours:
@@ -165,13 +180,12 @@ if __name__ == "__main__":
     schedule = GetSchedule(RoundId, TeamId)
     for i in schedule:
         print(i["DateTime"],"-", i["HomeTeamName"], str(i["HomeTeamScore"])+"-"+str(i["AwayTeamScore"]), i["AwayTeamName"])
-    now = datetime.now()
-    for i in schedule:
-        x = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
-        if x > now:
-            next = i
-            break
+    
+    next, last = Next_Last_Schedule(schedule)
     print(next["DateTime"], "-", next["HomeTeamName"], str(next["HomeTeamScore"])+"-"+str(next["AwayTeamScore"]), next["AwayTeamName"])
+    print(last["DateTime"], "-", last["HomeTeamName"], str(last["HomeTeamScore"])+"-"+str(last["AwayTeamScore"]), last["AwayTeamName"])
+
+
 
     print(ColourToHtml(Colours))
 
