@@ -127,13 +127,17 @@ def GetSchedule(RoundId, TeamId):
 def Next_Last_Schedule(schedule):
     now = datetime.now()
     counter = 0
-    for i in schedule:
-        x = datetime.strptime(i["DateTime"], '%a %d %B %Y, %H:%M')
-        if x > now:
-            next = i
-            last = schedule[counter-1]
-            break
-        counter += 1
+    if schedule == []:
+        next = []
+        last = []
+    else:
+        for i in schedule:
+            x = datetime.strptime(i["DateTime"], '%a %d %B %Y, %H:%M')
+            if x > now:
+                next = i
+                last = schedule[counter-1]
+                break
+            counter += 1
     return next, last
 
 def ColourToHtml(Colours):
