@@ -114,23 +114,24 @@ def GetSchedule(RoundId, TeamId):
         return None
     parsed_response = json.loads(response.text)
     schedule = [i for i in parsed_response if i['AwayTeamId'] == TeamId or i['HomeTeamId'] == TeamId]
+    for i in schedule:
+        dt = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
+        date = dt.strftime('%a %d %B %Y, %H:%M')
+        i["DateTime"] = date
     # print(schedule)
     return schedule
 
-
 def Next_Last_Schedule(schedule):
-
     now = datetime.now()
     counter = 0
     for i in schedule:
-        x = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
+        x = datetime.strptime(i["DateTime"], '%a %d %B %Y, %H:%M')
         if x > now:
             next = i
             last = schedule[counter-1]
             break
         counter += 1
     return next, last
-
 
 def ColourToHtml(Colours):
     htmlcolours = []
@@ -180,7 +181,7 @@ if __name__ == "__main__":
     schedule = GetSchedule(RoundId, TeamId)
     for i in schedule:
         print(i["DateTime"],"-", i["HomeTeamName"], str(i["HomeTeamScore"])+"-"+str(i["AwayTeamScore"]), i["AwayTeamName"])
-    
+
     next, last = Next_Last_Schedule(schedule)
     print(next["DateTime"], "-", next["HomeTeamName"], str(next["HomeTeamScore"])+"-"+str(next["AwayTeamScore"]), next["AwayTeamName"])
     print(last["DateTime"], "-", last["HomeTeamName"], str(last["HomeTeamScore"])+"-"+str(last["AwayTeamScore"]), last["AwayTeamName"])
@@ -188,4 +189,3 @@ if __name__ == "__main__":
 
 
     print(ColourToHtml(Colours))
-

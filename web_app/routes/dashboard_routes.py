@@ -43,7 +43,7 @@ def dashboard():
     next, last = Next_Last_Schedule(schedule)
 
     return render_template("dashboard.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule, htmlcolours=htmlcolours, next=next, last=last)
-    
+
 @dashboard_routes.route("/dashboard/schedule")
 def dashboard_schedule():
     print("DASHBOARD SCHEDULE...", dict(request.args))
