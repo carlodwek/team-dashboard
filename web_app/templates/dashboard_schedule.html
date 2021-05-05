@@ -48,7 +48,11 @@
       <tr style="border-bottom:1px solid #ddd">
         <td style="text-align:center">{{ i["DateTime"] }}</td>
         <td style="text-align:center">{{ i["HomeTeamName"] }}</td>
+        {% if i["HomeTeamScore"] != None and i["AwayTeamScore"] != None %}
         <td style="text-align:center">{{ i["HomeTeamScore"]~"-"~i["AwayTeamScore"] }}</td>
+        {% else %}
+        <td style="text-align:center">TBD</td>
+        {% endif %}
         <td style="text-align:center">{{ i["AwayTeamName"] }}</td>
       </tr>
   {% endfor %}
