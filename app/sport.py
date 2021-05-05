@@ -5,6 +5,8 @@ import requests
 import pandas as pd
 from datetime import datetime
 from operator import itemgetter
+from webcolors import name_to_hex
+
 
 # from app import APP_ENV
 
@@ -75,10 +77,27 @@ def GetTeamIds(team, SeasonId):
     TeamList = [i for i in parsed_response if i['Team']['Name'] == team][0]
     TeamId = TeamList['TeamId']
     LogoUrl = TeamList['Team']['WikipediaLogoUrl']
+    C1 = TeamList['Team']['ClubColor1']
+    if C1 == "White":
+        C1 = None
+    C2 = TeamList['Team']['ClubColor2']
+    if C2 == "White":
+        C2 = None
+    C4 = TeamList['Team']['ClubColor3']
+    if C4 == None:
+        C4 = "White"
+    cList = [C1,C2,"Black",C4]
+    Colours = []
+    for i in cList:
+        if i != None:
+            Colours.append(i.replace(" ", ""))
+        else:
+            Colours.append(i)
     print(TeamId)
     print(LogoUrl)
+    print(Colours)
 
-    return  TeamId, LogoUrl
+    return  TeamId, LogoUrl, Colours
 
 def GetStandings(RoundId):
     response = requests.get(f"https://fly.sportsdata.io/v3/soccer/scores/json/Standings/{RoundId}?key={API_KEY}")
@@ -98,6 +117,23 @@ def GetSchedule(RoundId, TeamId):
     # print(schedule)
     return schedule
 
+def ColourToHtml(Colours):
+    htmlcolours = []
+    for i in Colours:
+        if i == None:
+            htmlcolours.append("#6D757D")
+        else:
+            try:
+                hex = name_to_hex(i)
+                if hex != None:
+                    htmlcolours.append(hex)
+                else:
+                    htmlcolours.append("#6D757D")
+            except:
+                htmlcolours.append("#6D757D")
+
+    print(htmlcolours)
+    return htmlcolours
 if __name__ == "__main__":
 
     print(f"RUNNING THE LIVE SCORES APP IN {APP_ENV.upper()} MODE...")
@@ -116,12 +152,12 @@ if __name__ == "__main__":
     print("LEAGUE:", league)
     print("TEAM:", team)
 
-    TeamId, LogoUrl = GetTeamIds(team, SeasonId)
+    TeamId, LogoUrl, Colours = GetTeamIds(team, SeasonId)
 
     if not SeasonId or not RoundId or not TeamId:
         print("INVALID PARAMS. PLEASE CHECK YOUR INPUTS AND TRY AGAIN!")
         exit()
-    print(SeasonId, RoundId, TeamId, LogoUrl)
+    print(SeasonId, RoundId, TeamId, LogoUrl, Colours)
 
     standings = GetStandings(RoundId)
     for i in standings:
@@ -131,8 +167,10 @@ if __name__ == "__main__":
         print(i["DateTime"],"-", i["HomeTeamName"], str(i["HomeTeamScore"])+"-"+str(i["AwayTeamScore"]), i["AwayTeamName"])
     now = datetime.now()
     for i in schedule:
-        x = datetime.strptime(i["DateTime"], '%m-%d-%Y %H:%M')
+        x = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
         if x > now:
             next = i
             break
     print(next["DateTime"], "-", next["HomeTeamName"], str(next["HomeTeamScore"])+"-"+str(next["AwayTeamScore"]), next["AwayTeamName"])
+
+    print(ColourToHtml(Colours))

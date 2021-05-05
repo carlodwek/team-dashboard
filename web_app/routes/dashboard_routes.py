@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template
-from app.sport import GetSchedule, GetStandings, GetTeams, GetLeagueIds, GetTeamIds
+from app.sport import GetSchedule, GetStandings, GetTeams, GetLeagueIds, GetTeamIds, ColourToHtml
 
 dashboard_routes = Blueprint("dashboard_routes", __name__)
 
@@ -36,14 +36,14 @@ def dashboard():
     team = request_data.get("Team") or "FC Internazionale Milano"
 
     SeasonId, RoundId = GetLeagueIds(league=league)
-    TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
+    TeamId, LogoUrl, Colours = GetTeamIds(team=team, SeasonId=SeasonId)
     standings = GetStandings(RoundId=RoundId)
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
-
+    htmlcolours = ColourToHtml(Colours=Colours)
     # Getting last and next game
     # Simplified table code here
 
-    return render_template("dashboard.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)
+    return render_template("dashboard.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule, htmlcolours=htmlcolours)
 
 @dashboard_routes.route("/dashboard/schedule")
 def dashboard_schedule():
@@ -53,13 +53,13 @@ def dashboard_schedule():
     team = request.args.get("Team") or "FC Internazionale Milano"
 
     SeasonId, RoundId = GetLeagueIds(league=league)
-    TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
+    TeamId, LogoUrl, Colours = GetTeamIds(team=team, SeasonId=SeasonId)
     standings = GetStandings(RoundId=RoundId)
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
-
+    htmlcolours = ColourToHtml(Colours=Colours)
     # Fix dates and None-None and others
 
-    return render_template("dashboard_schedule.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)
+    return render_template("dashboard_schedule.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule, htmlcolours=htmlcolours)
 
 @dashboard_routes.route("/dashboard/standings")
 def dashboard_standings():
@@ -69,10 +69,12 @@ def dashboard_standings():
     team = request.args.get("Team") or "FC Internazionale Milano"
 
     SeasonId, RoundId = GetLeagueIds(league=league)
-    TeamId, LogoUrl = GetTeamIds(team=team, SeasonId=SeasonId)
+    TeamId, LogoUrl, Colours = GetTeamIds(team=team, SeasonId=SeasonId)
+    teams = GetTeams(SeasonId=SeasonId)
     standings = GetStandings(RoundId=RoundId)
     schedule = GetSchedule(RoundId=RoundId, TeamId=TeamId)
 
+    htmlcolours = ColourToHtml(Colours=Colours)
 
 
-    return render_template("dashboard_standings.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule)
+    return render_template("dashboard_standings.html", league=league, team=team, LogoUrl=LogoUrl, standings=standings, schedule=schedule, htmlcolours=htmlcolours)
