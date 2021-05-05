@@ -115,9 +115,12 @@ def GetSchedule(RoundId, TeamId):
     parsed_response = json.loads(response.text)
     schedule = [i for i in parsed_response if i['AwayTeamId'] == TeamId or i['HomeTeamId'] == TeamId]
     for i in schedule:
-        dt = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
-        date = dt.strftime('%a %d %B %Y, %H:%M')
-        i["DateTime"] = date
+        if i["DateTime"] == None:
+            i["DateTime"] = "TBD"
+        else:
+            dt = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
+            date = dt.strftime('%a %d %B %Y, %H:%M')
+            i["DateTime"] = date
     # print(schedule)
     return schedule
 
