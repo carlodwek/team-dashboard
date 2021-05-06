@@ -125,6 +125,10 @@ def GetSchedule(RoundId, TeamId):
             dt = datetime.strptime(i["DateTime"], '%Y-%m-%dT%H:%M:%S')
             date = dt.strftime('%a %d %B %Y, %H:%M')
             i["DateTime"] = date
+        if i["Status"] != "InProgress":
+            i["ClockDisplay"] = i["Status"]
+        else:
+            i["ClockDisplay"] = i["ClockDisplay"]+"min"
     # print(schedule)
     return schedule
 

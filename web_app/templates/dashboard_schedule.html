@@ -10,7 +10,7 @@
 {% set active_page = active_page|default('dashboard') -%}
 <nav style="background-color:{{ htmlcolours[1] }}" class="navbar navbar-expand-lg navbar-dark" >
     <div class="container-fluid" style="background-color:{{ htmlcolours[0] }}">
-      <a href="{{'/dashboard?League='+league+'&Team='+team}}"><img src="{{ LogoUrl }}" alt="Home" style="height:50px;margin:3px 10px"></a>
+      <a href="{{'/dashboard?League='+league+'&Team='+team}}" style="text-decoration:none;"><img src="{{ LogoUrl }}" alt="Home" style="height:50px;margin:3px 10px;color:{{ htmlcolours[2] }};"></a>
       <!-- <a class="navbar-brand" href="{{'/dashboard?League='+league+'&Team='+team}}">Home</a> -->
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,8 @@
 
 <table style="width:100%">
   <tr style="border-bottom:1px solid #ddd">
-    <th style="text-align:left">Time</th>
+    <th style="text-align:left">Scheduled</th>
+    <th style="text-align:center">Time</th>
     <th style="text-align:right">Home Team</th>
     <th style="text-align:center">Score</th>
     <th style="text-align:left">Away Team</th>
@@ -48,6 +49,7 @@
     {% if i["DateTime"] == last["DateTime"] %}
       <tr style="border-bottom:1px solid #ddd;background-color:#E6E6E6;font-weight:bold" >
         <td style="text-align:left">{{ i["DateTime"] }}</td>
+        <td style="text-align:center">{{ i["ClockDisplay"] }}</td>
         <td style="text-align:right"><a href="{{'/dashboard?League='+league+'&Team='+i['HomeTeamName']}}" style="color: #000000;text-decoration: none;">{{ i["HomeTeamName"] }}</a></td>
         {% if i["HomeTeamScore"] != None and i["AwayTeamScore"] != None %}
         <td style="text-align:center">{{ i["HomeTeamScore"]~"-"~i["AwayTeamScore"] }}</td>
@@ -59,6 +61,7 @@
     {% else %}
       <tr style="border-bottom:1px solid #ddd">
         <td style="text-align:left">{{ i["DateTime"] }}</td>
+        <td style="text-align:center">{{ i["ClockDisplay"] }}</td>
         <td style="text-align:right"><a href="{{'/dashboard?League='+league+'&Team='+i['HomeTeamName']}}" style="color: #000000;text-decoration: none;">{{ i["HomeTeamName"] }}</a></td>
         {% if i["HomeTeamScore"] != None and i["AwayTeamScore"] != None %}
         <td style="text-align:center">{{ i["HomeTeamScore"]~"-"~i["AwayTeamScore"] }}</td>
