@@ -59,7 +59,7 @@ def GetTeams(SeasonId):
 def GetLeagueIds(league):
     response = requests.get(f"https://fly.sportsdata.io/v3/soccer/scores/json/Competitions?key={API_KEY}")
     if response.status_code != 200:
-        return None, None, None, None
+        return None, None
     parsed_response = json.loads(response.text)
     tempList = [i['Seasons'] for i in parsed_response if i['Name'] == league][0]
     tempList = [i for i in tempList if i['CurrentSeason'] == True][0]
@@ -72,7 +72,7 @@ def GetLeagueIds(league):
 def GetTeamIds(team, SeasonId):
     response = requests.get(f"https://fly.sportsdata.io/v3/soccer/scores/json/SeasonTeams/{SeasonId}?key={API_KEY}")
     if response.status_code != 200:
-        return None, None, None, None
+        return None, None, None
     parsed_response = json.loads(response.text)
     TeamList = [i for i in parsed_response if i['Team']['Name'] == team][0]
     TeamId = TeamList['TeamId']

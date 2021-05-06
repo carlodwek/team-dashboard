@@ -34,38 +34,87 @@
     </div>
 </nav>
 
-<h1>{{ team }}</h1>
+
 
 <!-- can add color or maybe give it a different font -->
 
-<img src="{{ LogoUrl }}" alt="logo" style="width:200px">
+<!-- <img src="{{ LogoUrl }}" alt="logo" style="width:200px"> -->
 
 <!-- fixed position and fixed size -->
+<div style="width: 100%">
+<div style="float: left;width: 66.6%;margin-top: 16px;margin-bottom: 16px;padding: 0 8px;">
 
-<table style="width:100%"></table>
-    <tr style="border-bottom:1px solid #ddd">
-        <td style="text-align:center">{{ last["DateTime"] }}</td>
-        <td style="text-align:center">{{ last["HomeTeamName"] }}</td>
-        {% if last["HomeTeamScore"] != None and last["AwayTeamScore"] != None %}
-        <td style="text-align:center">{{ last["HomeTeamScore"]~"-"~last["AwayTeamScore"] }}</td>
-        {% else %}
-        <td style="text-align:center">TBD</td>
-        {% endif %}
-        <td style="text-align:center">{{ last["AwayTeamName"] }}</td>
-      </tr>
-</table>
+  <div style="float: left;width: 66.6%;margin-top: 88px;margin-bottom: 88px;">
+    <h1 style= "text-align:center;top:50%;left:50%">{{ team }}</h1>
+  </div>
 
-<table style="width:100%"></table>
+  <div style="float: right;width: 33.4%;height:50%;margin-top: 16px;margin-bottom: 16px;">
+    <img src="{{ LogoUrl }}" alt="logo" style="Height:200px">
+  </div>
+
+  <div>
+  <a href="{{'/dashboard/schedule?League='~league~'&Team='~team }}" style="color: #000000;text-decoration: none;"><h3>Recent/Upcoming {{ league }} Matches</h3></a>
+  <table style="width:100%">
     <tr style="border-bottom:1px solid #ddd">
-        <td style="text-align:center">{{ next["DateTime"] }}</td>
-        <td style="text-align:center">{{ next["HomeTeamName"] }}</td>
-        {% if next["HomeTeamScore"] != None and next["AwayTeamScore"] != None %}
-        <td style="text-align:center">{{ next["HomeTeamScore"]~"-"~last["AwayTeamScore"] }}</td>
-        {% else %}
-        <td style="text-align:center">TBD</td>
-        {% endif %}
-        <td style="text-align:center">{{ next["AwayTeamName"] }}</td>
-      </tr>
-</table>
+      <th style="text-align:left">Scheduled</th>
+      <th style="text-align:center">Time</th>
+      <th style="text-align:right">Home Team</th>
+      <th style="text-align:center">Score</th>
+      <th style="text-align:left">Away Team</th>
+    </tr>
+        <tr style="border-bottom:1px solid #ddd;background-color:#E6E6E6;font-weight:bold" >
+          <td style="text-align:left">{{ last["DateTime"] }}</td>
+          <td style="text-align:center">{{ last["ClockDisplay"] }}</td>
+          <td style="text-align:right"><a href="{{'/dashboard?League='+league+'&Team='+last['HomeTeamName']}}" style="color: #000000;text-decoration: none;">{{ last["HomeTeamName"] }}</a></td>
+          {% if last["HomeTeamScore"] != None and last["AwayTeamScore"] != None %}
+          <td style="text-align:center">{{ last["HomeTeamScore"]~"-"~last["AwayTeamScore"] }}</td>
+          {% else %}
+          <td style="text-align:center">TBD</td>
+          {% endif %}
+          <td style="text-align:left"><a href="{{'/dashboard?League='+league+'&Team='+last['AwayTeamName']}}" style="color: #000000;text-decoration: none;">{{ last["AwayTeamName"] }}</a></td>
         </tr>
+        <tr style="border-bottom:1px solid #ddd">
+          <td style="text-align:left">{{ next["DateTime"] }}</td>
+          <td style="text-align:center">{{ next["ClockDisplay"] }}</td>
+          <td style="text-align:right"><a href="{{'/dashboard?League='+league+'&Team='+next['HomeTeamName']}}" style="color: #000000;text-decoration: none;">{{ next["HomeTeamName"] }}</a></td>
+          {% if next["HomeTeamScore"] != None and next["AwayTeamScore"] != None %}
+          <td style="text-align:center">{{ next["HomeTeamScore"]~"-"~next["AwayTeamScore"] }}</td>
+          {% else %}
+          <td style="text-align:center">TBD</td>
+          {% endif %}
+          <td style="text-align:left"><a href="{{'/dashboard?League='+league+'&Team='+next['AwayTeamName']}}" style="color: #000000;text-decoration: none;">{{ next["AwayTeamName"] }}</a></td>
+        </tr>
+  </table>
+  </div>
+</div>
+<div style="float: right;width: 33.4%;margin-top: 16px;margin-bottom: 16px;padding: 0 8px;">
+  <a href="{{'/dashboard/standings?League='~league~'&Team='~team }}" style="color: #000000;text-decoration: none;"><h3>{{ league }} Standings</h3></a>
+  <table style="width:100%">
+    <tr style="border-bottom:1px solid #ddd">
+      <th style="text-align:left"></th>
+      <th style="text-align:left">Team</th>
+      <th style="text-align:center">Played</th>
+      <th style="text-align:center">Points</th>
+    </tr>
+    {% for i in standings %}
+      {% if i["Name"] == team %}
+        <tr style="border-bottom:1px solid #ddd;background-color:#E6E6E6;font-weight:bold">
+          <td style="text-align:left">{{ i["Order"] }}</td>
+          <td style="text-align:left"><a href="{{'/dashboard?League='+league+'&Team='+i['Name']}}" style="color: #000000;text-decoration: none;">{{ i["Name"] }}</a></td>
+          <td style="text-align:center">{{ i["Games"] }}</td>
+          <td style="text-align:center">{{ i["Points"] }}</td>
+        </tr>
+      {% else %}
+        <tr style="border-bottom:1px solid #ddd">
+          <td style="text-align:left">{{ i["Order"] }}</td>
+          <td style="text-align:left"><a href="{{'/dashboard?League='+league+'&Team='+i['Name']}}" style="color: #000000;text-decoration: none;">{{ i["Name"] }}</a></td>
+          <td style="text-align:center">{{ i["Games"] }}</td>
+          <td style="text-align:center">{{ i["Points"] }}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </table>
+</div>
+</div>
+
 {% endblock %}
