@@ -128,7 +128,7 @@ def GetSchedule(RoundId, TeamId):
         if i["Status"] != "InProgress":
             i["ClockDisplay"] = i["Status"]
         else:
-            i["ClockDisplay"] = i["ClockDisplay"]+"min"
+            i["ClockDisplay"] = i["ClockDisplay"]+"'"
     # print(schedule)
     return schedule
 
@@ -143,9 +143,16 @@ def Next_Last_Schedule(schedule):
             x = datetime.strptime(i["DateTime"], '%a %d %B %Y, %H:%M')
             if x > now:
                 next = i
-                last = schedule[counter-1]
+                if counter > 0:
+                    last = schedule[counter-1]
+                else:
+                    last = []
+                condition = True
                 break
             counter += 1
+        if condition == False:
+            next = []
+            last = schedule[counter-1]
     return next, last
 
 def ColourToHtml(Colours):

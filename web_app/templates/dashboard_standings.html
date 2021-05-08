@@ -10,7 +10,7 @@
 {% set active_page = active_page|default('dashboard') -%}
 <nav style="background-color:{{ htmlcolours[1] }}" class="navbar navbar-expand-lg navbar-dark" >
     <div class="container-fluid" style="background-color:{{ htmlcolours[0] }}">
-        <a href="{{'/dashboard?League='+league+'&Team='+team}}" style="text-decoration:none;"><img src="{{ LogoUrl }}" alt="Home" style="height:50px;margin:3px 10px;color:{{ htmlcolours[2] }};"></a>
+        <a href="{{'/dashboard?League='+league+'&Team='+team}}" style="text-decoration:none;"><img src="{{ LogoUrl }}" alt="Home" style="height:50px;margin:3px 10px;color:{{ htmlcolours[2] }};" onerror="this.src='/static/logo3.ico';"></a>
         <!-- <a class="navbar-brand" href="{{'/dashboard?League='+league+'&Team='+team}}">Home</a> -->
 
 
