@@ -52,46 +52,46 @@
     <img src="{{ LogoUrl }}" alt="logo" style="Height:200px" onerror="this.src='/static/logo3.ico';">
   </div>
 
-  <div>
-  <a href="{{'/dashboard/schedule?League='~league~'&Team='~team }}" style="color: #000000;text-decoration: none;"><h3>Recent/Upcoming {{ league }} Matches</h3></a>
-  <table style="width:100%">
-    <tr style="border-bottom:1px solid #ddd">
-      <th style="text-align:left">Scheduled</th>
-      <th style="text-align:center">Time</th>
-      <th style="text-align:right">Home Team</th>
-      <th style="text-align:center">Score</th>
-      <th style="text-align:left">Away Team</th>
-    </tr>
-    {% if last != [] %}
-        <tr style="border-bottom:1px solid #ddd;background-color:#E6E6E6;font-weight:bold" >
-          <td style="text-align:left">{{ last["DateTime"] }}</td>
-          <td style="text-align:center">{{ last["ClockDisplay"] }}</td>
-          <td style="text-align:right"><a href="{{'/dashboard?League='+league+'&Team='+last['HomeTeamName']}}" style="color: #000000;text-decoration: none;">{{ last["HomeTeamName"] }}</a></td>
-          {% if last["HomeTeamScore"] != None and last["AwayTeamScore"] != None %}
-          <td style="text-align:center">{{ last["HomeTeamScore"]~"-"~last["AwayTeamScore"] }}</td>
-          {% else %}
-          <td style="text-align:center">TBD</td>
-          {% endif %}
-          <td style="text-align:left"><a href="{{'/dashboard?League='+league+'&Team='+last['AwayTeamName']}}" style="color: #000000;text-decoration: none;">{{ last["AwayTeamName"] }}</a></td>
-        </tr>
-    {% endif %}
-    {% if next != [] %}
-        <tr style="border-bottom:1px solid #ddd">
-          <td style="text-align:left">{{ next["DateTime"] }}</td>
-          <td style="text-align:center">{{ next["ClockDisplay"] }}</td>
-          <td style="text-align:right"><a href="{{'/dashboard?League='+league+'&Team='+next['HomeTeamName']}}" style="color: #000000;text-decoration: none;">{{ next["HomeTeamName"] }}</a></td>
-          {% if next["HomeTeamScore"] != None and next["AwayTeamScore"] != None %}
-          <td style="text-align:center">{{ next["HomeTeamScore"]~"-"~next["AwayTeamScore"] }}</td>
-          {% else %}
-          <td style="text-align:center">TBD</td>
-          {% endif %}
-          <td style="text-align:left"><a href="{{'/dashboard?League='+league+'&Team='+next['AwayTeamName']}}" style="color: #000000;text-decoration: none;">{{ next["AwayTeamName"] }}</a></td>
-        </tr>
-    {% endif %}
-  </table>
+  <div style="padding: 20px;border-radius: 25px;border: 2px solid #6D757D;">
+    <a href="{{'/dashboard/schedule?League='~league~'&Team='~team }}" style="color: #000000;text-decoration: none;"><h3>Recent/Upcoming {{ league }} Matches</h3></a>
+    <table style="width:100%">
+      <tr style="border-bottom:1px solid #ddd">
+        <th style="text-align:left">Scheduled</th>
+        <th style="text-align:center">Time</th>
+        <th style="text-align:right">Home Team</th>
+        <th style="text-align:center">Score</th>
+        <th style="text-align:left">Away Team</th>
+      </tr>
+      {% if last != [] %}
+          <tr style="border-bottom:1px solid #ddd;background-color:#E6E6E6;font-weight:bold" >
+            <td style="text-align:left">{{ last["DateTime"] }}</td>
+            <td style="text-align:center">{{ last["ClockDisplay"] }}</td>
+            <td style="text-align:right"><a href="{{'/dashboard?League='+league+'&Team='+last['HomeTeamName']}}" style="color: #000000;text-decoration: none;">{{ last["HomeTeamName"] }}</a></td>
+            {% if last["HomeTeamScore"] != None and last["AwayTeamScore"] != None %}
+            <td style="text-align:center">{{ last["HomeTeamScore"]~"-"~last["AwayTeamScore"] }}</td>
+            {% else %}
+            <td style="text-align:center">TBD</td>
+            {% endif %}
+            <td style="text-align:left"><a href="{{'/dashboard?League='+league+'&Team='+last['AwayTeamName']}}" style="color: #000000;text-decoration: none;">{{ last["AwayTeamName"] }}</a></td>
+          </tr>
+      {% endif %}
+      {% if next != [] %}
+          <tr style="border-bottom:1px solid #ddd">
+            <td style="text-align:left">{{ next["DateTime"] }}</td>
+            <td style="text-align:center">{{ next["ClockDisplay"] }}</td>
+            <td style="text-align:right"><a href="{{'/dashboard?League='+league+'&Team='+next['HomeTeamName']}}" style="color: #000000;text-decoration: none;">{{ next["HomeTeamName"] }}</a></td>
+            {% if next["HomeTeamScore"] != None and next["AwayTeamScore"] != None %}
+            <td style="text-align:center">{{ next["HomeTeamScore"]~"-"~next["AwayTeamScore"] }}</td>
+            {% else %}
+            <td style="text-align:center">TBD</td>
+            {% endif %}
+            <td style="text-align:left"><a href="{{'/dashboard?League='+league+'&Team='+next['AwayTeamName']}}" style="color: #000000;text-decoration: none;">{{ next["AwayTeamName"] }}</a></td>
+          </tr>
+      {% endif %}
+    </table>
   </div>
 </div>
-<div style="float: right;width: 33.4%;margin-top: 16px;margin-bottom: 16px;padding: 0 8px;">
+<div style="float: right;width: 33.4%;margin-top: 16px;margin-bottom: 16px;padding: 20px;border-radius: 25px;border: 2px solid #6D757D;">
   <a href="{{'/dashboard/standings?League='~league~'&Team='~team }}" style="color: #000000;text-decoration: none;"><h3>{{ league }} Standings</h3></a>
   <table style="width:100%">
     <tr style="border-bottom:1px solid #ddd">
