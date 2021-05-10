@@ -1,6 +1,6 @@
 # Team Dashboard App
 
-Hello user!
+Hello User!
 
 This app allows you to check the latest scores and standings of your favorite football team. You will have the option to choose both the league and team that you wish to check out.
 
@@ -8,7 +8,7 @@ Follow the instructions below to get started!
 
 ## Installation
 
-Fork [this repo](https://github.com/carlodwek/team-dashboard), then clone or download the forked repo onto your local computer. Then, navigate there from the command-line:
+Fork [this repo](https://github.com/carlodwek/team-dashboard), then clone or download the forked repo onto your local computer. After that, navigate there from the command-line:
 
 ```sh
 cd ~/Desktop/team-dashboard
