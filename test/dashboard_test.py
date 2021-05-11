@@ -6,40 +6,58 @@ from app.sport import GetLeagues, GetSchedule, GetStandings, GetTeams, GetLeague
 CI_ENV = os.getenv("CI") == "true"
 
 @pytest.mark.skipif(CI_ENV==True, reason="to avoid issuing HTTP requests on the CI server")
+
 def test_GetLeagues:
 
-    results = GetLeagues(leagues="Serie A")
-    asserts results["Name"] == "Serie A"
-    
-def test_GetTeams:
+    leagues = GetLeagues()
+    assert "Serie A" in leagues
 
 def test_GetLeagueIds:
+    
+    seasonID, roundID = GetLeagueIds(league="Serie A")
+    assert seasonID == 128
+    assert roundID == 645
+
+def test_GetTeams:
+    teams = GetTeams(seasonID = 128)
+    assert "AS Roma" in teams
 
 def test_GetTeamIds:
 
+    teamID, logourl, colors = GetTeamIds(team = "AS Roma", SeasonId = 128)
+    assert teamID == 550
+    assert logourl == "https://upload.wikimedia.org/wikipedia/en/f/f7/AS_Roma_logo_%282017%29.svg"
+    assert colors == ['Maroon', 'Orange', 'Black', 'White']
+
 def test_GetSchedule:
+    
+    schedule = GetSchedule(roundID = 645, teamID = 550)
+    assert schedule[0]["HomeTeamName"]=="AS Roma" or schedule[0]["AwayTeamName"]=="AS Roma"
+
 
 def test_GetStandings:
 
-def test_GetTeams:
+    standings = GetStandings(roundID=645)
+    listTeams = []
+    for x in standings:
+        listTeams.append(x['Name'])
+    assert "AS Roma" in listTeams
+     
 
 def test_ColourToHtml:
 
+    listColors = ['None', 'Black', 'Broken']
+    color = ColourToHtml(listColors)
+    assert color = ["#6D757D", "#000000", "#6D757D"] 
+
 def test_Next_Last_Schedule:
 
-def test_GetSchedule():
-    # # with valid geography, returns the city name and forecast info:
-    # results = get_hourly_forecasts(country_code="US", zip_code="20057", unit="F")
-    # assert results["city_name"] == "Washington, DC"
-    # assert len(results["hourly_forecasts"]) == 24
-    # forecast = results["hourly_forecasts"][0]
-    # assert sorted(list(forecast.keys())) == ["conditions", "image_url", "temp", "timestamp"]
-    # assert forecast["timestamp"].endswith(":00")
-    # assert f"{DEGREE_SIGN}F" in forecast["temp"]
-    #
-    # # with invalid geography, fails gracefully and returns nothing:
-    # invalid_results = get_hourly_forecasts(country_code="US", zip_code="OOPS", unit="F")
-    # assert invalid_results == None
+    next, last = Next_Last_Schedule(schedule)
+    assert next[0]["HomeTeamName"]=="AS Roma" or next[0]["AwayTeamName"]=="AS Roma"
+    assert last[0]["HomeTeamName"]=="AS Roma" or last[0]["AwayTeamName"]=="AS Roma"
 
-def test_GetStandings():
-    # assert format_hour("2021-03-29T21:00:00-04:00") == "21:00"
+    
+
+
+
+
