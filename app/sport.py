@@ -134,21 +134,32 @@ def GetSchedule(RoundId, TeamId):
 
 def Next_Last_Schedule(schedule):
     now = datetime.now()
+    condition = False
     counter = 0
     if schedule == []:
         next = []
         last = []
     else:
         for i in schedule:
-            x = datetime.strptime(i["DateTime"], '%a %d %B %Y, %H:%M')
-            if x > now:
-                next = i
-                if counter > 0:
-                    last = schedule[counter-1]
-                else:
-                    last = []
-                condition = True
-                break
+            if i["DateTime"] != "TBD":
+                x = datetime.strptime(i["DateTime"], '%a %d %B %Y, %H:%M')
+                if x > now:
+                    next = i
+                    if counter > 0:
+                        last = schedule[counter-1]
+                    else:
+                        last = []
+                    condition = True
+                    break
+            else:
+                if x < now:
+                    next = i
+                    if counter > 0:
+                        last = schedule[counter-1]
+                    else:
+                        last = []
+                    condition = True
+                    break
             counter += 1
         if condition == False:
             next = []
